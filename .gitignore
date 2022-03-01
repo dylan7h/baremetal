@@ -1,4 +1,5 @@
 config.mk
 build/*
+output/*
 tools/download/*
 tools/toolchain/*

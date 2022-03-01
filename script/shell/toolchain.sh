@@ -39,15 +39,17 @@ for i in $URLS; do
 done
 
 # Download ToolChain
+mkdir -p $DOWLOAD_DIR
 if [ ! -z "$TARGET_URLS" ]; then
     echo ">> Downloading ToolChain..."
     aria2c -d "${DOWLOAD_DIR}" -Z $TARGET_URLS
 fi
 
+# Decompressing ToolChain & Create a symbolic link
+mkdir -p $TOOLCHAIN_DIR
 for i in $TARGET_TOOLCHAINS; do
     echo ">> decompressing $i.tar.xz ..."
     pv "$DOWLOAD_DIR/$i.tar.xz" | tar -xJf- -C $TOOLCHAIN_DIR/
-    echo ""
 
     case $i in
         *arm-none-eabi*)    symbolic=arm-none-eabi;;
@@ -58,4 +60,5 @@ for i in $TARGET_TOOLCHAINS; do
 
     echo Create a symbolic link with $i as $symbolic
     ln -s $TOOLCHAIN_DIR/$i $TOOLCHAIN_DIR/$symbolic
+    echo ""
 done
