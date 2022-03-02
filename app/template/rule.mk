@@ -1,4 +1,4 @@
-app_dir	:=$(call getdir)
+template_dir:=$(call getdir)
 
-include $(app_dir)/include/rule.mk
-include $(app_dir)/source/rule.mk
+$(eval $(call add_include,$(template_dir),include))
+$(eval $(call add_include,$(template_dir),source))

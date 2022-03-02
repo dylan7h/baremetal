@@ -1,3 +1,3 @@
-inc_dir	:=$(call getdir)
+inc_dir:=$(call getdir)
 
 INCLUDES+=-I $(inc_dir)

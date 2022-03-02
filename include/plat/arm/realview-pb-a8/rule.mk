@@ -1,3 +1,3 @@
-plat_inc_dir:=$(call getdir)
+realview_pb_a8_dir:=$(call getdir)
 
-INCLUDES+=-I $(plat_inc_dir)
+INCLUDES+=-I $(realview_pb_a8_dir)

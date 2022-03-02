@@ -1,9 +1,8 @@
-PLAT_PATH=$(shell find plat -name $(CONFIG_PLAT))
-include app/$(CONFIG_APP_NAME)/rule.mk
-include include/$(PLAT_PATH)/rule.mk
-include $(PLAT_PATH)/rule.mk
+include app/rule.mk
+include include/rule.mk
+include plat/rule.mk
 
-TARGET=$(CONFIG_OUTPUT_DIR)/$(CONFIG_PLAT)
+TARGET=$(CONFIG_OUTPUT_DIR)/$(CONFIG_APP)
 
 AUTO_CONF_PATH=$(CONFIG_BUILD_DIR)/generated/autoconf.h
 AUTO_CONF_TEMP_PATH=$(CONFIG_BUILD_DIR)/generated/temp.h
@@ -43,11 +42,11 @@ lib:
 
 clean:
 	@echo [RM] $(CONFIG_BUILD_DIR)/$(PLAT_PATH) $(silent)
-	@echo [RM] $(CONFIG_BUILD_DIR)/app/$(CONFIG_APP_NAME) $(silent)
+	@echo [RM] $(CONFIG_BUILD_DIR)/app/$(CONFIG_APP) $(silent)
 	@echo [RM] $(CONFIG_OUTPUT_DIR)/$(CONFIG_PLAT)* $(silent)
 
 	$(Q)rm -rf $(CONFIG_BUILD_DIR)/$(PLAT_PATH)
-	$(Q)rm -rf $(CONFIG_BUILD_DIR)/app/$(CONFIG_APP_NAME)
+	$(Q)rm -rf $(CONFIG_BUILD_DIR)/app/$(CONFIG_APP)
 	$(Q)rm -rf $(CONFIG_OUTPUT_DIR)/$(CONFIG_PLAT)*
 
 distclean:

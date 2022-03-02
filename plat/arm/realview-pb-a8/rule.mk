@@ -1,3 +1,3 @@
-plat_dir	:=$(call getdir)
+realview_pb_a8_dir:=$(call getdir)
 
-include $(plat_dir)/boot/rule.mk
+$(eval $(call add_include,$(realview_pb_a8_dir),boot))
