@@ -1,3 +1,7 @@
+#include "psr.h"
+#include "cp15.h"
+#include "memory_map.h"
+
 .global _start
     .section ".vectors", "ax"
 

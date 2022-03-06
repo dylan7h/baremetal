@@ -3,7 +3,7 @@ $(patsubst %/,%,$(patsubst %/,%,$(dir $(lastword $(MAKEFILE_LIST)))))
 endef
 
 define add_include
-  ifndef (,$(2))
+  ifeq (y,$(3))
     include $(1)/$(2)/rule.mk
   endif
 endef

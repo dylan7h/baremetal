@@ -1,3 +1,5 @@
+#include "memory_map.h"
+
 OUTPUT_FORMAT("elf32-littlearm")
 OUTPUT_ARCH(arm)
 ENTRY(_start)

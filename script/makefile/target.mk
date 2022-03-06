@@ -1,8 +1,8 @@
 include app/rule.mk
-include include/rule.mk
 include plat/rule.mk
+include lib/rule.mk
 
-TARGET=$(CONFIG_OUTPUT_DIR)/$(CONFIG_APP)
+TARGET=$(CONFIG_OUTPUT_DIR)/$(CONFIG_APP_NAME)
 
 AUTO_CONF_PATH=$(CONFIG_BUILD_DIR)/generated/autoconf.h
 AUTO_CONF_TEMP_PATH=$(CONFIG_BUILD_DIR)/generated/temp.h
@@ -16,13 +16,16 @@ LDFLAGS		+=-Wl,--fatal-warnings -O1 -Wl,--gc-sections -nostdlib
 lds 		:=$(addprefix $(CONFIG_BUILD_DIR)/, $(lds-y))
 objs		:=$(addprefix $(CONFIG_BUILD_DIR)/, $(plat-y))
 objs 		+=$(addprefix $(CONFIG_BUILD_DIR)/, $(app-y))
+objs 		+=$(addprefix $(CONFIG_BUILD_DIR)/, $(lib-y))
+objs 		+=$(addprefix $(CONFIG_BUILD_DIR)/, $(drv-y))
 
 deps		:=$(addprefix $(CONFIG_BUILD_DIR)/, $(lds-y:.ld=.d))
 deps		+=$(addprefix $(CONFIG_BUILD_DIR)/, $(objs:.o=.d))
 
-all: $(AUTO_CONF_PATH) $(TARGET)
+.EXPORT_ALL_VARIABLES:
+all: $(AUTO_CONF_PATH) lib $(TARGET)
 	
-$(TARGET):  $(lds) $(objs)
+$(TARGET): $(lds) $(objs)
 	$(Q)mkdir -p $(CONFIG_OUTPUT_DIR)
 
 	@echo [LD] $@ $(silent)
@@ -36,9 +39,6 @@ $(TARGET):  $(lds) $(objs)
 
 	@echo [OC] $@.hex $(silent)
 	$(Q)$(OC) -O ihex -S $@ $@.hex
-
-lib:
-	$(MAKE) -C lib
 
 clean:
 	@echo [RM] $(CONFIG_BUILD_DIR)/$(PLAT_PATH) $(silent)
